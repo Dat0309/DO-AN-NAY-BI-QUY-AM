@@ -11,8 +11,3 @@ class AgricultureController(metaclass=SingletonMeta):
     
     async def insert_json(self,data:list):
         await self.agricultureCrud.add_many(data)
-    
-    async def add_vehicle_for_current_user(self,object):
-        await self.agricultureCrud.set_unique([('agriculture', 1)])
-        agriculture = AgricultureModel(**{**object.dict()})
-        return await self.agricultureCrud.add(data=agriculture.dict())

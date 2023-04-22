@@ -16,37 +16,45 @@ class AgricultureType(str,Enum):
     leaf="leaf"
 
 class AgricultureModel(BaseModel):
-    agriculture: object = Field(...)
-    type: AgricultureType = Field(...)
+    image: str = Field(...) #hinhd ảnh
+    common_name: str = Field(...) #tên chung
+    specific_name: str = Field(...) #tên khoa học
+    description: str = Field(...) #mô tả về loài cây
+    lifespan: int = Field(...) # tuổi thọ
+    height_when_mature: float = Field(...) # chiều cao khi trưởng thành
+    type: AgricultureType = Field(...) #loại nông sản
 
     class Config:
         schema_extra = {
             "example": {
-                "agriculture": "str",
-                "type":"Agriculture type (ex: flower, fruit, plant, leaf)"
-            }
-        }
-
-class AgricultureSubModel(BaseModel):
-    agriculture: object= Field(...)
-    type: AgricultureType = Field(...)
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "agriculture": "object",
+                "image": "str",
+                "common_name": "str",
+                "specific_name": "str",
+                "description": "str",
+                "lifespan": 5,
+                "height_when_mature": 55,
                 "type":"Agriculture type (ex: flower, fruit, plant, leaf)"
             }
         }
 
 class UpdateAgricultureModel(BaseModel):
-    plate: Optional[object]
+    image: str = Field(...) #hinhd ảnh
+    common_name: str = Field(...) #tên chung
+    specific_name: str = Field(...) #tên khoa học
+    description: str = Field(...) #mô tả về loài cây
+    lifespan: int = Field(...) # tuổi thọ
+    height_when_mature: float = Field(...) # chiều cao khi trưởng thành
     type: Optional[AgricultureType]
 
     class Config:
         schema_extra = {
             "example": {
-                "agriculture": "object",
+                "image": "str",
+                "common_name": "str",
+                "specific_name": "str",
+                "description": "str",
+                "lifespan": 5,
+                "height_when_mature": 55,
                 "type":"Agriculture type (ex: flower, fruit, plant, leaf)"
             }
         }
@@ -60,5 +68,10 @@ class AgricultureModelListOut(PaginationInfo):
 
 
 class SearchAgriculture(BaseModel):
-    agriculture: Optional[object]
+    image: str = Field(...) #hinhd ảnh
+    common_name: str = Field(...) #tên chung
+    specific_name: str = Field(...) #tên khoa học
+    description: str = Field(...) #mô tả về loài cây
+    lifespan: int = Field(...) # tuổi thọ
+    height_when_mature: float = Field(...) # chiều cao khi trưởng thành
     type: Optional[AgricultureType]
