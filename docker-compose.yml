@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  auth_service:
+    build: 
+      context: .
+      dockerfile: dockerfiles/auth.dockerfile
+    image: daz/auth-identitit-sgriculture
+    volumes:
+      - ./backend/auth:/auth
+    env_file:
+      - ./env/auth.env
+    ports:
+      - '8001:8080'
+  ai_service:
+    build: 
+      context: .
+      dockerfile: dockerfiles/yolo-identity-agriculture.dockerfile
+    image: daz/yolo-identity-agriculture
+    volumes:
+      - ./backend/yolo-identity-agriculture:/yolo-identity-agriculture
+    ports:
+      - '8002:8080'
+  app_service:
+    build:
+      context: .
+      dockerfile: dockerfiles/agriculture-product-identities-app.dockerfile
+    image: daz/agriculture-product-identities-app
+    volumes:
+      - ./backend/agriculture-product-identities-app:/agriculture-product-identities-app
+    env_file:
+      - ./env/agriculture-product-identities-app.env
+    ports:
+      - '8003:8080'
+    depends_on:
+      - auth_service
+      - ai_service
+  identity_agriculture_service:
+    build:
+      context: .
+      dockerfile: dockerfiles/identity-agriculture-real-time.dockerfile
+    image: daz/identity-agriculture-real-time
+    volumes:
+      - ./backend/identity-agriculture-real-time:/identity-agriculture-real-time
+    ports:
+      - '8004:8080'
+  # redis:
+  #   image: redis:alpine3.16
+  #   ports:
+  #     - '6379:6379'
+  frontend:
+    build:
+      context: .
+      dockerfile: dockerfiles/frontend.dockerfile
+    volumes:
+      - react_build:/react/build
+  nginx:
+    build:
+      context: .
+      dockerfile: dockerfiles/nginx.dockerfile
+    image: daz/nginx-identity-agriculture
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - react_build:/var/www/react
+    ports:
+      - '80:80'
+      - '443:80'
+    depends_on:
+      - auth_service
+      - app_service
+      - ai_service
+      - frontend
+      # - check_vehicle_service
+  # worker:
+  #   image: hotaroudazai/license-plate-app
+  #   command: celery -A api.tasks.worker worker --loglevel=INFO
+  #   env_file:
+  #     - ./env/license-plate-app.env
+  #   volumes:
+  #     - ./backend/license-plate-app:/license-plate-app
+  #   depends_on:
+  #     - app_service
+volumes:
+  react_build:
