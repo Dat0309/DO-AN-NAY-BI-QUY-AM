@@ -7,7 +7,7 @@ from utils.singleton import SingletonMeta
 
 class FetchYoloAPI(metaclass=SingletonMeta):
     def __init__(self):
-        self.url = 'http://ai_service:8000/api/v1/yolo-identity-agriculture'
+        self.url = 'http://ai_service:8080/api/v1/yolo-identity-agriculture'
         
     async def predict(self, image):
         data = aiohttp.FormData()
@@ -20,7 +20,7 @@ class FetchYoloAPI(metaclass=SingletonMeta):
             
 class FetchAgricultureManager(metaclass=SingletonMeta):
     def __init__(self) -> None:
-        self.url = 'http://app_service:8000/api/v1/agricultural-product-identification-app'
+        self.url = 'http://app_service:8080/api/v1/agricultural-product-identification-app'
 
     async def get_agriculture_info(self, data):
         async with aiohttp.ClientSession() as session:

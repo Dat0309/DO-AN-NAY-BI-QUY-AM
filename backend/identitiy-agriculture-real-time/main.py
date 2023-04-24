@@ -9,6 +9,14 @@ from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
+    openapi_url='/api/v1/check-vehicle-real-time/openapi.json',
+    docs_url='/api/v1/check-vehicle-real-time/docs',
+    redoc_url='/api/v1/check-vehicle-real-time/redoc',
+    title='Check Vehicle Realtime',
+    version='1.0.0',
+)
+
+app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
     allow_methods=['*'],
@@ -52,10 +60,10 @@ def video_streaming_generator(camera_streaming):
             b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.get('/api/v1/identity-agriculture-real-time/camera')
-def video_feed(id_region: str,type: str,rtsp: str):
+def video_feed(type: str,rtsp: str):
     url = rtsp
     if url not in stream.keys() or stream[url].thread==None:
-        stream[url] = CameraStream(id_region,type,url,test_manager)
+        stream[url] = CameraStream(type,url,test_manager)
     return StreamingResponse(
         video_streaming_generator(stream[url]),
         media_type='multipart/x-mixed-replace; boundary=frame'
@@ -64,8 +72,8 @@ def video_feed(id_region: str,type: str,rtsp: str):
 if __name__ == '__main__':
     uvicorn.run(
         'main:app',
-        host='0.0.0.0',
-        port=8000,
+        host='localhost',
+        port=8080,
         reload=True,
         log_level='info'
     )

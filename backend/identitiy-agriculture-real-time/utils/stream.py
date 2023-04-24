@@ -80,10 +80,8 @@ class BaseCamera:
         self.thread = None
 
 class CameraStream(BaseCamera):
-    def __init__(self, id_region, turn, src=0, manager=None, task=None):
+    def __init__(self, src=0, manager=None, task=None):
         self.src = src
-        self.id_region = id_region
-        self.turn = turn
         self.manager=manager
         self.fetchYoloAPI = FetchYoloAPI()
         self.fetchAgriculture = FetchAgricultureManager()
@@ -118,7 +116,7 @@ class CameraStream(BaseCamera):
 
         self.data_obj = data
         if data != []:
-            asyncio.run(self.manager.broadcast(data,self.id_region))
+            asyncio.run(self.manager.broadcast(data))
 
     def frames(self)->any:
         frame = cv2.VideoCapture(self.src)

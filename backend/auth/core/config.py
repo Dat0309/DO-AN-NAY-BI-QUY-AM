@@ -1,9 +1,9 @@
 import os
 
-from dotenv import load_dotenv
+from dotenv import read_dotenv
 from pydantic import BaseSettings
 
-load_dotenv(dotenv_path = '../../env/auth.env')
+read_dotenv(dotenv = '../../env/auth.env')
 
 class CommonSettings(BaseSettings):
     DEBUG_MODE: bool = True

@@ -1,9 +1,9 @@
 import os
 
-from dotenv import load_dotenv
+from dotenv import read_dotenv
 from pydantic import BaseSettings
 
-load_dotenv(dotenv_path='../../env/agriculture-product-identities-app.env')
+read_dotenv(dotenv='../../env/agriculture-product-identities-app.env')
 
 
 class CommonSettings(BaseSettings):
@@ -11,7 +11,7 @@ class CommonSettings(BaseSettings):
 
 
 class ServerSettings(BaseSettings):
-    HOST: str = '0.0.0.0'
+    HOST: str = 'localhost'
     PORT: int = 8080
 
 
