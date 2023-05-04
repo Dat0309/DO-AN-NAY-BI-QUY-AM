@@ -1,0 +1,16 @@
+@media (min-width: 992px) {
+    .result {
+        max-width: 960px;
+    }
+}
+
+.result {
+    margin: 0 auto;
+    padding: 0;
+    margin-bottom: 3rem;
+
+    &__title {
+        font-size: 2rem;
+        font-family: 'Lora', sans-serif;
+    }
+}
