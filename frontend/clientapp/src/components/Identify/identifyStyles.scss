@@ -4,6 +4,19 @@
     }
 }
 
+.identify__box__showresult {
+    display: flex;
+    flex-direction: row;
+
+    .image {
+        width: 15rem;
+        height: 15rem;
+        padding-right: 1rem;
+        
+        position: relative;
+    }
+}
+
 .identify {
     margin: 0 auto;
     font-family: 'Lora', sans-serif;

@@ -1,4 +1,4 @@
-import { Footer, Header, Identify, Result } from "../../components"
+import { Footer, Header, Identify } from "../../components"
 
 import './homeStyles.scss'
 
@@ -7,7 +7,7 @@ const Home = () => {
         <div className="home">
             <Header />
             <Identify />
-            <Result />
+            {/* <Result /> */}
             <Footer />
         </div>
     )

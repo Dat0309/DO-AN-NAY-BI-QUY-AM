@@ -6,5 +6,5 @@
     "identify.manual": "The observation can only have up to 4 pictures of the same plant",
     "identify.manual.line2": "At least one photo of leaf, flower, fruit or bark is required for identification to work",
     "identify.manual3.line3": "It is recommended to use images of maximum 1280*1280 pixels",
-    "identify.label.addimage": "add / drop an image"
+    "identify.label.addimage": "Click to add an image"
 }
