@@ -12,7 +12,7 @@
         width: 15rem;
         height: 15rem;
         padding-right: 1rem;
-        
+
         position: relative;
     }
 }
@@ -173,4 +173,32 @@
             }
         }
     }
+}
+
+.ui.buttons:not(.basic):not(.inverted)>.button,
+.ui.buttons>.ui.button:not(.basic):not(.inverted) {
+    width: 400px;
+    height: 60px;
+    align-items: flex-start;
+    padding: 20px;
+    display: flex;
+    font-size: 20px;
+    font-family: 'Lora';
+    color: black;
+}
+
+.ui.modal>.image.content {
+    justify-content: space-between;
+}
+
+.ui.avatar.image {
+    margin-right: 15px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+
+}
+
+.ui.modal>.header:not(.ui) {
+    font-family: 'Lora';
 }

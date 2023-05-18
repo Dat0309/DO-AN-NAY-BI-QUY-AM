@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import t from '../../translation.json';
 import srcURL from '../../srcURL.json';
-import { Icon } from 'semantic-ui-react'
+import { Icon, Button, Image, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 
 import 'semantic-ui-css/semantic.min.css'
@@ -12,6 +12,7 @@ import './identifyStyles.scss'
 const Identify = () => {
 
     const [images, setImages] = useState([]);
+    const [currentSelectedImage, setCurrentSelectedImage] = useState([]);
     const [statusButton, setStatusButton] = useState('active')
     const [showRemoveButton, setShowRemoveButton] = useState([]);
     const [selectedFile, setSelectedFile] = useState([])
@@ -19,6 +20,7 @@ const Identify = () => {
     const [resultIdentify, setResultIdentify] = useState([]);
     const [resultImage, setResultImage] = useState([]);
     const [fruitDetails, setFruitDetails] = useState([]);
+    const [open, setOpen] = useState(false);
 
     const reader = new FileReader();
 
@@ -33,39 +35,24 @@ const Identify = () => {
         formData.append('file', selectedFile)
         var data;
         await axios.post('http://localhost:8080/api/v1/agriculture-recognition/agriculture-recognition/recognition', formData)
-        .then(async (res) => {
-            data = res.data.result[0].common_name
-            setResultIdentify(data)
-            var imageData;
-            var imageDetails;
-            var fruit = data.split(':');
-            await axios.get(`https://agriculture-identity.vercel.app/api/v1/agriculture/get-by-name/?name=${fruit[0]}`)
-            .then((res) => {
-            imageData = res.data[0].image;
-            imageDetails = res.data[0]
-            })
-            setResultImage(imageData);
-            setFruitDetails(imageDetails);
-            if (res.status === 200) {
-                alert("Nhận diện thành công!");
-            }
-        });
+            .then(async (res) => {
+                data = res.data.result[0].common_name
+                setResultIdentify(data)
+                var imageData;
+                var imageDetails;
+                var fruit = data.split(':');
+                await axios.get(`https://agriculture-identity.vercel.app/api/v1/agriculture/get-by-name/?name=${fruit[0]}`)
+                    .then((res) => {
+                        imageData = res.data[0].image;
+                        imageDetails = res.data[0]
+                    })
+                setResultImage(imageData);
+                setFruitDetails(imageDetails);
+                if (res.status === 200) {
+                    alert("Nhận diện thành công!");
+                }
+            });
     };
-
-    // const handleGetImageFromAPI = async () => {
-
-    //         var imageData;
-    //         var imageDetails;
-    //         var fruit = resultIdentify.split(':');
-    //         await axios.get(`https://agriculture-identity.vercel.app/api/v1/agriculture/get-by-name/?name=${fruit[0]}`)
-    //         .then((res) => {
-    //         imageData = res.data[0].image;
-    //         imageDetails = res.data[0]
-    //         })
-    //         setResultImage(imageData);
-    //         setFruitDetails(imageDetails);
-
-    // }
 
     // Handle upload image
     const handleImageUpload = (e) => {
@@ -73,7 +60,9 @@ const Identify = () => {
         let file = e.target.files[0];
         reader.readAsDataURL(file);
         reader.onload = () => {
+            setOpen(true)
             selectedImage = reader.result
+            setCurrentSelectedImage(selectedImage)
             setImages(prevImages => {
                 let result = [...prevImages]
                 if (prevImages.includes(selectedImage)) {
@@ -101,6 +90,8 @@ const Identify = () => {
         e.target.value = null;
     }
 
+
+    //Xu ly khi xoa 1 anh
     const handleRemoveImage = (e, index) => {
         e.preventDefault()
         setImages(prevImages => {
@@ -114,7 +105,6 @@ const Identify = () => {
             setResultImage([]);
             setFruitDetails([]);
             setResultIdentify([])
-            console.log(result.length);
             if (result.length < 4) {
                 setStatusButton('active');
                 // setSubmit(false);
@@ -123,7 +113,7 @@ const Identify = () => {
             }
             return result;
         });
-        
+
     }
 
     const handleClickIdentify = (e) => {
@@ -194,10 +184,40 @@ const Identify = () => {
                 <p>Nhận diện: {resultIdentify}</p>
                 <div className="identify__box__showresult">
                     {resultImage && <img className="image" src={resultImage} alt="ResultImage" />}
-                    <p>Mô tả: {fruitDetails.description}</p> 
+                    <p>Mô tả: {fruitDetails.description}</p>
                 </div>
             </div>
+            <Modal
+                open={open}
+            >
+                <Modal.Header>Choose an organ</Modal.Header>
+                <Modal.Content image>
+                    <Image size='medium' src={currentSelectedImage} wrapped />
+                    <Modal.Actions>
+                        <Button.Group basic vertical>
+                            <Button>
+                                <Image src='https://identify.plantnet.org/images/organs/flower.png' avatar />
+                                Flower
+                            </Button>
+                            <Button>
+                                <Image src='https://identify.plantnet.org/images/organs/leaf.png' avatar />
+                                Leaf
+                            </Button>
+                            <Button>
+                                <Image src='https://identify.plantnet.org/images/organs/fruit.png' avatar />
+                                Fruit
+                            </Button>
+                            <Button>
+                                <Image src='https://identify.plantnet.org/images/organs/bark.png' avatar />
+                                Bark
+                            </Button>
+                        </Button.Group>
+                    </Modal.Actions>
+                </Modal.Content>
+            </Modal>
+
         </div>
+
     )
 }
 
