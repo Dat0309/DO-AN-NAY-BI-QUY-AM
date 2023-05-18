@@ -3,6 +3,7 @@ import t from '../../translation.json';
 import srcURL from '../../srcURL.json';
 import { Icon, Button, Image, Modal } from 'semantic-ui-react'
 import axios from 'axios'
+import { classify } from "../../config/ClassifyImages";
 
 import 'semantic-ui-css/semantic.min.css'
 import './identifyStyles.scss'
@@ -12,6 +13,8 @@ import './identifyStyles.scss'
 const Identify = () => {
 
     const [images, setImages] = useState([]);
+    const [classifyImages, setClassifyImages] = useState([]);
+
     const [currentSelectedImage, setCurrentSelectedImage] = useState([]);
     const [statusButton, setStatusButton] = useState('active')
     const [showRemoveButton, setShowRemoveButton] = useState([]);
@@ -117,7 +120,11 @@ const Identify = () => {
             }
             return result;
         });
-
+        setClassifyImages(prevClassifyImages => {
+            let result = [...prevClassifyImages]
+            result.splice(index, 1)
+            return result;
+        })
     }
 
     const handleClickIdentify = (e) => {
@@ -135,18 +142,39 @@ const Identify = () => {
             case 'leaf':
                 leafFile.splice(0, 1, selectedFile)
                 setOpen(false);
+                setClassifyImages(prevClassify => {
+                    let result = [...prevClassify]
+                    result.push(classify.leaf)
+                    return result;
+                });
                 break;
             case 'flower':
                 flowerFile.splice(0, 1, selectedFile)
                 setOpen(false);
+                setClassifyImages(prevClassify => {
+                    let result = [...prevClassify]
+                    result.push(classify.flower)
+                    return result;
+                });
                 break;
             case 'bark':
                 barkFile.splice(0, 1, selectedFile)
                 setOpen(false);
+                setClassifyImages(prevClassify => {
+                    let result = [...prevClassify]
+                    result.push(classify.bark)
+                    return result;
+                });
                 break;
             case 'fruit':
                 fruitFile.splice(0, 1, selectedFile)
                 setOpen(false);
+                setClassifyImages(prevClassify => {
+                    let result = [...prevClassify]
+                    result.push(classify.fruit)
+                    return result;
+                });
+                console.log(classifyImages);
                 break;
             default:
                 console.log("No value found");
@@ -177,12 +205,14 @@ const Identify = () => {
                         <button onClick={(e) => handleRemoveImage(e, 0)} className={`identify__box__showimage__card__removebutton ${showRemoveButton[0] || "noshow"}`}>
                             <Icon name="x" />
                         </button>
+                        {classifyImages[0] && <img className="classifyImage" src={classifyImages[0]} />}
                     </div>
                     <div className="identify__box__showimage__card">
                         {images[1] && <img src={images[1]} alt="selectedImage" />}
                         <button onClick={(e) => handleRemoveImage(e, 1)} className={`identify__box__showimage__card__removebutton ${showRemoveButton[1] || "noshow"}`}>
                             <Icon name="x" />
                         </button>
+                        {classifyImages[1] && <img className="classifyImage" src={classifyImages[1]} />}
                     </div>
                 </div>
                 <div className="identify__box__showimage">
@@ -191,12 +221,14 @@ const Identify = () => {
                         <button onClick={(e) => handleRemoveImage(e, 2)} className={`identify__box__showimage__card__removebutton ${showRemoveButton[2] || "noshow"}`}>
                             <Icon name="x" />
                         </button>
+                        {classifyImages[2] && <img className="classifyImage" src={classifyImages[2]} />}
                     </div>
                     <div className="identify__box__showimage__card">
                         {images[3] && <img src={images[3]} alt="selectedImage" />}
                         <button onClick={(e) => handleRemoveImage(e, 3)} className={`identify__box__showimage__card__removebutton ${showRemoveButton[3] || "noshow"}`}>
                             <Icon name="x" />
                         </button>
+                        {classifyImages[3] && <img className="classifyImage" src={classifyImages[3]} />}
                     </div>
                 </div>
                 <div className="identify__box__button">
@@ -224,22 +256,22 @@ const Identify = () => {
                         <Button.Group basic vertical>
                             <Button
                                 onClick={(e) => handleClassifyImage(e, 'flower')}>
-                                <Image src='https://identify.plantnet.org/images/organs/flower.png' avatar />
+                                <Image src={classify.flower} avatar />
                                 Flower
                             </Button>
                             <Button
                                 onClick={(e) => handleClassifyImage(e, 'leaf')}>
-                                <Image src='https://identify.plantnet.org/images/organs/leaf.png' avatar />
+                                <Image src={classify.leaf} avatar />
                                 Leaf
                             </Button>
                             <Button
                                 onClick={(e) => handleClassifyImage(e, 'fruit')}>
-                                <Image src='https://identify.plantnet.org/images/organs/fruit.png' avatar />
+                                <Image src={classify.fruit} avatar />
                                 Fruit
                             </Button>
                             <Button
                                 onClick={(e) => handleClassifyImage(e, 'bark')}>
-                                <Image src='https://identify.plantnet.org/images/organs/bark.png' avatar />
+                                <Image src={classify.bark} avatar />
                                 Bark
                             </Button>
                         </Button.Group>

@@ -137,6 +137,10 @@
                 height: 240px;
                 margin: 2rem;
                 position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                align-content: flex-end;
+                justify-content: flex-end;
 
                 img {
                     object-fit: cover;
@@ -146,9 +150,6 @@
                 }
 
                 &__removebutton {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
                     width: 2rem;
                     height: 2rem;
                     border-radius: 1.5rem;
@@ -156,7 +157,7 @@
                     background-color: #E76161;
                     float: right;
                     display: block;
-                    position: relative;
+                    position: absolute;
 
                     .x.icon {
                         margin: 0;
@@ -201,4 +202,11 @@
 
 .ui.modal>.header:not(.ui) {
     font-family: 'Lora';
+}
+
+.identify__box__showimage__card .classifyImage {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: relative;
 }
