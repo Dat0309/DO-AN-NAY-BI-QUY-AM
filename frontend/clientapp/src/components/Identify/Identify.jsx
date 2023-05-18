@@ -22,6 +22,11 @@ const Identify = () => {
     const [fruitDetails, setFruitDetails] = useState([]);
     const [open, setOpen] = useState(false);
 
+    let leafFile = [];
+    let flowerFile = [];
+    let barkFile = [];
+    let fruitFile = [];
+
     const reader = new FileReader();
 
     let selectedImage = "";
@@ -60,7 +65,6 @@ const Identify = () => {
         let file = e.target.files[0];
         reader.readAsDataURL(file);
         reader.onload = () => {
-            setOpen(true)
             selectedImage = reader.result
             setCurrentSelectedImage(selectedImage)
             setImages(prevImages => {
@@ -68,6 +72,7 @@ const Identify = () => {
                 if (prevImages.includes(selectedImage)) {
                     alert('The same image cannot be added twice');
                 } else {
+                    setOpen(true)
                     result.push(selectedImage);
                     setShowRemoveButton(prevStatusButton => {
                         let statusResult = [...prevStatusButton]
@@ -77,7 +82,6 @@ const Identify = () => {
                 }
                 if (result.length === 4) {
                     setStatusButton('deactive');
-                    // setSubmit(true);
                 } else if (result.length === 0) {
                     setSubmit(false);
                 } else if (result.length !== 0) {
@@ -120,9 +124,32 @@ const Identify = () => {
         e.preventDefault();
         if (submit) {
             handleUploadFilesToAPI();
-            // handleGetImageFromAPI();
         } else {
             alert('Chưa thể nhận diện!')
+        }
+    }
+
+    const handleClassifyImage = (e, type) => {
+        e.preventDefault();
+        switch (type) {
+            case 'leaf':
+                leafFile.splice(0, 1, selectedFile)
+                setOpen(false);
+                break;
+            case 'flower':
+                flowerFile.splice(0, 1, selectedFile)
+                setOpen(false);
+                break;
+            case 'bark':
+                barkFile.splice(0, 1, selectedFile)
+                setOpen(false);
+                break;
+            case 'fruit':
+                fruitFile.splice(0, 1, selectedFile)
+                setOpen(false);
+                break;
+            default:
+                console.log("No value found");
         }
     }
 
@@ -195,19 +222,23 @@ const Identify = () => {
                     <Image size='medium' src={currentSelectedImage} wrapped />
                     <Modal.Actions>
                         <Button.Group basic vertical>
-                            <Button>
+                            <Button
+                                onClick={(e) => handleClassifyImage(e, 'flower')}>
                                 <Image src='https://identify.plantnet.org/images/organs/flower.png' avatar />
                                 Flower
                             </Button>
-                            <Button>
+                            <Button
+                                onClick={(e) => handleClassifyImage(e, 'leaf')}>
                                 <Image src='https://identify.plantnet.org/images/organs/leaf.png' avatar />
                                 Leaf
                             </Button>
-                            <Button>
+                            <Button
+                                onClick={(e) => handleClassifyImage(e, 'fruit')}>
                                 <Image src='https://identify.plantnet.org/images/organs/fruit.png' avatar />
                                 Fruit
                             </Button>
-                            <Button>
+                            <Button
+                                onClick={(e) => handleClassifyImage(e, 'bark')}>
                                 <Image src='https://identify.plantnet.org/images/organs/bark.png' avatar />
                                 Bark
                             </Button>
