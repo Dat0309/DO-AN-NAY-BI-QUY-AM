@@ -10,7 +10,7 @@ from tensorflow.python import keras
 from keras import layers
 from keras.models import Sequential
 
-data_dir = "E:\\FINAL\\DO-AN-NAY-BI-QUY-AM\\backend\\train\\Image"
+data_dir = "E:\\FINAL\\DO-AN-NAY-BI-QUY-AM\\backend\\train\\train_leaf"
 print(os.listdir(data_dir))
 
 batch_size = 32
@@ -103,7 +103,7 @@ history = model.fit(
   epochs=epochs
 )
 
-model.save('agriculture_model.h5')
+model.save('leaf_model.h5')
 
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
