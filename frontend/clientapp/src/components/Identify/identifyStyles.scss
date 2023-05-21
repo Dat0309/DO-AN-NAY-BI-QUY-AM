@@ -7,11 +7,12 @@
 .identify__box__showresult {
     display: flex;
     flex-direction: row;
+    font-size: 1.1rem;
 
     .image {
         width: 15rem;
         height: 15rem;
-        padding-right: 1rem;
+        margin-right: 2rem;
 
         position: relative;
     }
@@ -209,4 +210,10 @@
     height: 40px;
     display: block;
     position: relative;
+}
+
+
+.result_box_card {
+    padding: 24px 0;
+    font-size: 1.1rem;
 }
