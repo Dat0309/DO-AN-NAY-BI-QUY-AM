@@ -174,7 +174,6 @@ const Identify = () => {
                     result.push(classify.fruit)
                     return result;
                 });
-                console.log(classifyImages);
                 break;
             default:
                 console.log("No value found");
@@ -187,6 +186,10 @@ const Identify = () => {
                 <span className="identify__venture__title">{t.groupName}</span>
                 <span className="identify__venture__description">{t["home.description"]}</span>
             </h2>
+            <h3 className="des">
+                <p className="des__title">Identify, explore and share your observations of wild plants</p>
+                <p className="des__content"><span>Application of plant identification</span> is a tool to help to identify plants with pictures. It is organized in different thematic and geographical floras.</p>
+            </h3>
             <div className="identify__box">
                 <h2 className="identify__box__title">{t["identify.title"]}</h2>
                 <p className="identify__box__subtitle" style={{ fontWeight: "bold" }}>{t["identify.subtitle"]} {t.groupName}</p>
