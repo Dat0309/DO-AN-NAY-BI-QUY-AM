@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 
 import 'package:plant_identification_app/controller/agriculture_controller.dart';
+import 'package:plant_identification_app/controller/pick_image_controller.dart';
 import 'package:plant_identification_app/helper/local_storage_helper.dart';
 
 import 'package:plant_identification_app/views/intro/splash_screen.dart';
@@ -47,7 +48,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    Get.find<AgricultureController>();
+    Get.find<AgricultureController>().getAgricultures();
+    Get.find<AgricultureController>().getAgricultureByType();
+    Get.find<PickImageController>();
     super.initState();
   }
 

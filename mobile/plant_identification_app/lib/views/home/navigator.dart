@@ -4,6 +4,8 @@ import 'package:plant_identification_app/constants/color_constants.dart';
 import 'package:plant_identification_app/ultils/dimensions.dart';
 import 'package:plant_identification_app/views/favourite/favourite_screen.dart';
 import 'package:plant_identification_app/views/home/home_screen.dart';
+import 'package:plant_identification_app/views/other/detail_plant_screen.dart';
+import 'package:plant_identification_app/views/scan/pick_image_screen.dart';
 import 'package:plant_identification_app/views/settings/user_settings_screen.dart';
 
 import '../../constants/teststyle_constants.dart';
@@ -20,9 +22,7 @@ class _NavigationPageState extends State<NavigationPage> {
   List pages = [
     const HomeScreen(),
     const FavouriteScreen(),
-    Container(
-      color: Colors.blue,
-    ),
+    Container(),
     const SettingDetailScreen()
   ];
 
