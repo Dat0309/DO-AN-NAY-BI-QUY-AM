@@ -48,6 +48,10 @@ dependencies:
   qr_code_scanner: ^1.0.1
   image_picker: ^0.8.7+4
   awesome_dialog: ^3.0.2
+  dotted_border: ^2.0.0+3
+  dio: ^5.1.2
+  http: 
+  loading_animation_widget: ^1.2.0+4
   
 
 

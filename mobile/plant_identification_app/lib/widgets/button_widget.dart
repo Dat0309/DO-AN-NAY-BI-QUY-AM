@@ -25,7 +25,7 @@ class ButtonWidget extends StatelessWidget {
         child: Text(
           title,
           style: TextStyles.defaultStyle
-              .copyWith(fontSize: 16, color: Colors.white),
+              .copyWith(fontSize: 16, color: Colors.white,),
         ),
       ),
     );

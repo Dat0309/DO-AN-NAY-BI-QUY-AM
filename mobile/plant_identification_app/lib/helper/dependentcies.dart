@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:plant_identification_app/controller/agriculture_controller.dart';
+import 'package:plant_identification_app/controller/pick_image_controller.dart';
 import 'package:plant_identification_app/service/repository/agriculture_repo.dart';
 
 class AppDependentcies {
@@ -7,5 +8,6 @@ class AppDependentcies {
     Get.lazyPut(() => AgricultureRepo());
 
     Get.lazyPut(() => AgricultureController(agricultureRepo: Get.find()));
+    Get.lazyPut(() => PickImageController());
   }
 }

@@ -31,5 +31,24 @@ class AssetHelper {
   static const String iconRotate = 'assets/icons/rotate.png';
   static const String iconPupularCamera = 'assets/icons/popularCamera.png';
   static const String iconEdit = 'assets/icons/edit.png';
+  static const String iconPlus = 'assets/icons/plus.png';
+  static const String iconLeaf = 'assets/icons/leaf.png';
+  static const String iconBark = 'assets/icons/brak.png';
+  static const String iconFruit = 'assets/icons/fruits.png';
+  static const String iconFlower = 'assets/icons/flower.png';
+  static const String iconwidth = 'assets/icons/width.png';
+  static const String iconheight = 'assets/icons/length.png';
+  static const String iconwater = 'assets/icons/water.png';
+  static const String iconlight = 'assets/icons/Sun.png';
+
+  static const String iconFoodCrops = 'assets/icons/foodcrops.png';
+  static const String iconIndustry = 'assets/icons/industrialplants.png';
+  static const String iconVegetable = 'assets/icons/vegetable.png';
+  static const String iconGrind = 'assets/icons/grind.png';
+  static const String iconLivestock= 'assets/icons/livestock.png';
+  static const String iconLogs = 'assets/icons/logs.png';
+  static const String iconSoil= 'assets/icons/soil.png';
+  static const String logo = 'assets/icons/logo.png';
   
+
 }

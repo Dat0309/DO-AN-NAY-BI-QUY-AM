@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:plant_identification_app/constants/data_plant.dart';
+import 'package:plant_identification_app/controller/agriculture_controller.dart';
 
 import '../../constants/app_constants.dart';
 import '../../constants/teststyle_constants.dart';
@@ -18,39 +20,45 @@ class FavouriteScreen extends StatefulWidget {
 class _FavouriteScreenState extends State<FavouriteScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.heightPadding20),
-        child:SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              AppBarWidget(
-                leftWidget: GestureDetector(
-                  onTap: (() {
-                    Navigator.pop(context);
-                  }),
-                  child: SizedBox(
-                    height: Dimensions.iconSize24,
-                    child: Image.asset(
-                      AssetHelper.icArrowBack,
-                      fit:  BoxFit.cover,
+    return GetBuilder<AgricultureController>(
+      builder: (controller) {
+        return Scaffold(
+          body: SafeArea(
+              child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: Dimensions.heightPadding20),
+            child:SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  AppBarWidget(
+                    leftWidget: GestureDetector(
+                      onTap: (() {
+                        Navigator.pop(context);
+                      }),
+                      child: SizedBox(
+                        height: Dimensions.iconSize24,
+                        child: Image.asset(
+                          AssetHelper.icArrowBack,
+                          fit:  BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    centerWidget: Text(
+                      AppConstants.favourite,
+                      style: TextStyles.defaultStyle.bold.copyWith(fontSize: 18),
                     ),
                   ),
-                ),
-                centerWidget: Text(
-                  AppConstants.favourite,
-                  style: TextStyles.defaultStyle.bold.copyWith(fontSize: 18),
-                ),
+                  controller.isLoadAgricultures
+                  ? ListPlantWidget(plants: controller.agricultures, countItem: plants.length)
+                  : Container()
+                ],
               ),
-              ListPlantWidget(plants: plants, countItem: plants.length)
-            ],
+            ),
           ),
-        ),
-      ),
-      
-      ),
+          
+          ),
+        );
+      }
     );
   }
 }
