@@ -15,6 +15,7 @@ class AgricultureController extends GetxController {
   bool isLoadAgricultures = false;
 
   List<Agriculture> agricultures = [];
+  List<Agriculture> agriculturesByName = [];
   List<AgricultureRecognition> agricultureRecogs = [];
   List<Agriculture> leafAgriculture = [];
   List<Agriculture> fruitAgriculture = [];
@@ -23,6 +24,8 @@ class AgricultureController extends GetxController {
 
   Future<Map<String, dynamic>> recognition(PickedFile imgLeaf,
       PickedFile imgFlower, PickedFile imgFruit, PickedFile imgBark) async {
+    agricultureRecogs.clear();
+    agriculturesByName.clear();
     isRecognition = false;
     var result;
 
@@ -42,11 +45,14 @@ class AgricultureController extends GetxController {
             if (value2.statusCode == 200) {
               final Map<String, dynamic> resData2 = json.decode(value2.body);
               for (var agri in resData2['agriculture']) {
-                agricultures.add(Agriculture.fromMap(agri));
+                agriculturesByName.add(Agriculture.fromMap(agri));
               }
+              
             }
           });
         }
+        agricultureRecogs.reversed;
+        agriculturesByName.reversed;
 
         isRecognition = true;
 
@@ -55,7 +61,7 @@ class AgricultureController extends GetxController {
           'message': 'Successfull',
           'data': {
             'agriculturesRecognitions': agricultureRecogs,
-            'agricultures': agricultures
+            'agricultures': agriculturesByName
           }
         };
 
@@ -76,6 +82,7 @@ class AgricultureController extends GetxController {
     isLoadAgricultures = false;
     await agricultureRepo.getAgricultures().then((value) {
       if (value.statusCode == 200) {
+        agricultures.clear();
         final Map<String, dynamic> res = json.decode(value.body);
 
         for (int i = 0; i < res['agricultures'].length; i++) {
@@ -87,44 +94,54 @@ class AgricultureController extends GetxController {
     });
   }
 
-  Future<void> getAgricultureByType() async{
+  Future<void> getAgricultureByType() async {
     isLoadAllAgricultureByType = false;
-    await agricultureRepo.getAgricultureByType(AppConstants.typeLeaf).then((value){
+    await agricultureRepo
+        .getAgricultureByType(AppConstants.typeLeaf)
+        .then((value) {
       print(value.body);
-      if(value.statusCode == 200){
+      if (value.statusCode == 200) {
+        leafAgriculture.clear();
         final Map<String, dynamic> res = json.decode(value.body);
 
-        for(int i=0; i<res['agricultures'].length; i++){
+        for (int i = 0; i < res['agricultures'].length; i++) {
           leafAgriculture.add(Agriculture.fromMap(res['agricultures'][i]));
         }
         update();
       }
     });
-    await agricultureRepo.getAgricultureByType(AppConstants.typeFruit).then((value){
-       print(value.body);
-      if(value.statusCode == 200){
+    await agricultureRepo
+        .getAgricultureByType(AppConstants.typeFruit)
+        .then((value) {
+      print(value.body);
+      if (value.statusCode == 200) {
+        fruitAgriculture.clear();
         final Map<String, dynamic> res = json.decode(value.body);
 
-        for(int i=0; i<res['agricultures'].length; i++){
+        for (int i = 0; i < res['agricultures'].length; i++) {
           fruitAgriculture.add(Agriculture.fromMap(res['agricultures'][i]));
         }
         update();
       }
     });
-    await agricultureRepo.getAgricultureByType(AppConstants.typeFlower).then((value){
-       print(value.body);
-      if(value.statusCode == 200){
+    await agricultureRepo
+        .getAgricultureByType(AppConstants.typeFlower)
+        .then((value) {
+      print(value.body);
+      if (value.statusCode == 200) {
+        flowerAgriculture.clear();
         final Map<String, dynamic> res = json.decode(value.body);
 
-        for(int i=0; i<res['agricultures'].length; i++){
+        for (int i = 0; i < res['agricultures'].length; i++) {
           flowerAgriculture.add(Agriculture.fromMap(res['agricultures'][i]));
         }
         update();
       }
     });
 
-
-    if(leafAgriculture.isNotEmpty && fruitAgriculture.isNotEmpty && flowerAgriculture.isNotEmpty){
+    if (leafAgriculture.isNotEmpty &&
+        fruitAgriculture.isNotEmpty &&
+        flowerAgriculture.isNotEmpty) {
       isLoadAllAgricultureByType = true;
       update();
     }

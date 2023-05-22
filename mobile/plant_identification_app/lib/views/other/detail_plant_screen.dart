@@ -112,10 +112,15 @@ class _DetailPlantScreenState extends State<DetailPlantScreen> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  "${widget.agriculture.commonName!} (${widget.agriculture.specificName})",
-                                  style: TextStyles.defaultStyle.fontHeader.bold
-                                      .copyWith(fontSize: 24),
+                                SizedBox(
+                                  width: Dimensions.widthPadding300 + 40,
+                                  child: Text(
+                                    "${widget.agriculture.commonName!} (${widget.agriculture.specificName})",
+                                    style: TextStyles.defaultStyle.fontHeader.bold
+                                        .copyWith(fontSize: 24),
+                                        overflow: TextOverflow.ellipsis,
+
+                                  ),
                                 ),
                               ],
                             ),
