@@ -5,6 +5,8 @@ import { Icon, Button, Image, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import { classify } from "../../config/ClassifyImages";
 import { resultDuplicate } from "../../config/ResultDuplicate"
+import List from '../Product/ListProduct/ListProduct'
+
 
 import 'semantic-ui-css/semantic.min.css'
 import './identifyStyles.scss'
@@ -12,6 +14,105 @@ import './identifyStyles.scss'
 
 
 const Identify = () => {
+
+    const products = [
+        {
+            title: 'Themes',
+            items: [
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+            ]
+        },
+        {
+
+            title: 'Europe',
+            items: [
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+                {
+                    name: 'Flore mondiale',
+                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
+                    notes: 'Flore du monde',
+                    especes: '37 023',
+                    images: '9 802 268 ',
+                },
+            ]
+        }
+    ]
+
     const [images, setImages] = useState([]);
     const [classifyImages, setClassifyImages] = useState([]);
     const [classifySticker, setClassifySticker] = useState([]);
@@ -391,6 +492,17 @@ const Identify = () => {
                         {resultImage[2] && <img className="image" src={resultImage[2]} alt="ResultImage" />}
                         {fruitDetails[2] && <p><b>Mô tả:</b> {fruitDetails[2]}</p>}
                     </div>
+                </div>
+            </div>
+            <div className="plant_list">
+                <h2 className="plant_list_title">Plant list</h2>
+                <div>
+                    <ul>
+                        {products.map(p => (
+                            <List title={p.title} items={p.items} />
+                        ))}
+                    </ul>
+
                 </div>
             </div>
             <Modal

@@ -1,0 +1,41 @@
+.item {
+    display: inline-block;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    /* border: solid 1px #000; */
+    box-shadow: 0 0 8px #c5c2c2;
+}
+
+.image {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 110px;
+}
+
+.content {
+    padding: 24px;
+}
+
+.notes {
+    margin: 4px 0 14px 0;
+    opacity: 0.6;
+}
+
+.data {
+    display: flex;
+    gap: 14px;
+}
+
+.data span+span {
+    margin-left: 4px;
+}
+
+.numble {
+    color: #1cbc64;
+}
+
+.name {
+    font-family: 'Lora';
+}
