@@ -12,7 +12,7 @@ const Item = ({ ...props }) => {
                 <h3 className='name'>{name}</h3>
                 <div className='notes'>{notes}</div>
                 <div className='data'>
-                    <div className='especes'> <span className='numble'>{especes}</span><span>especes</span></div>
+                    <div className='especes'> <span className='numble'>{especes}</span><span>species</span></div>
                     <div className='images'> <span className='numble'>{images}</span><span>images</span></div>
                 </div>
             </div>
