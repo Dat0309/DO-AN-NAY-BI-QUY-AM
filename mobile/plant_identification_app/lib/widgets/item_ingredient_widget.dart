@@ -49,7 +49,7 @@ class ItemIngredientWidget extends StatelessWidget {
               Text(
                 data,
                 style: TextStyles.defaultStyle
-                    .copyWith(color: ColorPalette.text1Color, fontSize: 15),
+                    .copyWith(color: ColorPalette.text1Color, fontSize: 12),
               ),
             ],
           )

@@ -13,14 +13,6 @@ class ListResult extends StatefulWidget {
 
 class _ListResultState extends State<ListResult> {
 
-  double getTotalPercent(List<dynamic> agriRecog){
-    double percent = 0;
-    agriRecog.forEach((element) {
-      percent += element['percent'] as double;
-    });
-    return percent;
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AgricultureController>(
@@ -31,11 +23,11 @@ class _ListResultState extends State<ListResult> {
             right: Dimensions.widthPadding15,
           ),
           child: ListView.builder(
-            itemCount: controller.agricultures.length,
+            itemCount: controller.agricultureRecogs.length,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {},
               child: ItemResutl(
-                agriculture: controller.agricultures[index],
+                agriculture: controller.agriculturesByName[index],
                 agricultureRecognition: controller.agricultureRecogs[index],
               ),
             ),

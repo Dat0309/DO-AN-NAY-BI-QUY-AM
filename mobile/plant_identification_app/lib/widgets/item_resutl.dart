@@ -64,7 +64,7 @@ class ItemResutl extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: Dimensions.heightPadding30),
                   child: Text(
-                    agricultureRecognition.percent.toString(),
+                    "${agricultureRecognition.percent!.ceil()}%",
                     style: TextStyles.defaultStyle.bold.copyWith(
                       fontSize: 16,
                       color: ColorPalette.text1Color,
