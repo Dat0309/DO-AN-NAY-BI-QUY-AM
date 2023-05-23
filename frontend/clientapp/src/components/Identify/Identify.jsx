@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import t from '../../translation.json';
 import srcURL from '../../srcURL.json';
 import { Icon, Button, Image, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 import { classify } from "../../config/ClassifyImages";
 import { resultDuplicate } from "../../config/ResultDuplicate"
+import List from '../Product/ListProduct/ListProduct'
+
 
 import 'semantic-ui-css/semantic.min.css'
 import './identifyStyles.scss'
@@ -12,6 +14,28 @@ import './identifyStyles.scss'
 
 
 const Identify = () => {
+
+    const [leafData, setLeafData] = useState([]);
+    const [fruitData, setFruitData] = useState([]);
+
+    useEffect(() => {
+        const fetchLeafData = async () => {
+            await axios.get(`${getAPIByType}6447dbeab556ff734098c72f`)
+                .then((res) => {
+                    setLeafData(res.data.agricultures);
+                })
+        }
+        fetchLeafData();
+
+        const fetchFruitData = async () => {
+            await axios.get(`${getAPIByType}6447dbeab556ff734098c730`)
+                .then((res) => {
+                    setFruitData(res.data.agricultures);
+                })
+        }
+        fetchFruitData();
+    }, [])
+
     const [images, setImages] = useState([]);
     const [classifyImages, setClassifyImages] = useState([]);
     const [classifySticker, setClassifySticker] = useState([]);
@@ -32,6 +56,7 @@ const Identify = () => {
     const [fruitFile, setFruitFile] = useState([])
 
     const api = 'http://localhost:8080/api/v1/agriculture-recognition/agriculture-recognition/multi-recognition'
+    const getAPIByType = 'https://agriculture-identity.vercel.app/api/v1/agriculture/type-id/'
     const reader = new FileReader();
 
     let selectedImage = "";
@@ -391,6 +416,19 @@ const Identify = () => {
                         {resultImage[2] && <img className="image" src={resultImage[2]} alt="ResultImage" />}
                         {fruitDetails[2] && <p><b>Mô tả:</b> {fruitDetails[2]}</p>}
                     </div>
+                </div>
+            </div>
+            <div className="plant_list">
+                <h2 className="plant_list_title">Plant list</h2>
+                <div>
+                    <ul>
+                        {fruitData &&
+                            <List plants={fruitData} />
+                        }
+                        {leafData &&
+                            <List plants={leafData} />
+                        }
+                    </ul>
                 </div>
             </div>
             <Modal

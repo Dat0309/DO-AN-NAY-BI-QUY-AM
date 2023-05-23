@@ -1,0 +1,50 @@
+.item {
+    display: inline-block;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    /* border: solid 1px #000; */
+    box-shadow: 0 0 8px #c5c2c2;
+}
+
+.image {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 150px;
+    margin-bottom: 5px;
+}
+
+.item_content {
+    padding: 20px;
+    padding-top: 15px;
+}
+
+.content {
+    height: 119px;
+    overflow-y: auto;
+}
+
+.notes {
+    margin: 4px 0 14px 0;
+    opacity: 0.8;
+    font-weight: 700;
+}
+
+.data {
+    display: flex;
+    gap: 14px;
+}
+
+.data span+span {
+    margin-left: 4px;
+}
+
+.numble {
+    color: #1cbc64;
+}
+
+.name {
+    font-family: 'Lora';
+    margin-bottom: 5px;
+}
