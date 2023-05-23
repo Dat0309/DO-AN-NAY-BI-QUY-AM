@@ -11,16 +11,24 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 110px;
+    height: 150px;
+    margin-bottom: 5px;
+}
+
+.item_content {
+    padding: 20px;
+    padding-top: 15px;
 }
 
 .content {
-    padding: 24px;
+    height: 119px;
+    overflow-y: auto;
 }
 
 .notes {
     margin: 4px 0 14px 0;
-    opacity: 0.6;
+    opacity: 0.8;
+    font-weight: 700;
 }
 
 .data {
@@ -38,4 +46,5 @@
 
 .name {
     font-family: 'Lora';
+    margin-bottom: 5px;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import t from '../../translation.json';
 import srcURL from '../../srcURL.json';
 import { Icon, Button, Image, Modal } from 'semantic-ui-react'
@@ -15,103 +15,26 @@ import './identifyStyles.scss'
 
 const Identify = () => {
 
-    const products = [
-        {
-            title: 'Themes',
-            items: [
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-            ]
-        },
-        {
+    const [leafData, setLeafData] = useState([]);
+    const [fruitData, setFruitData] = useState([]);
 
-            title: 'Europe',
-            items: [
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-                {
-                    name: 'Flore mondiale',
-                    image: 'https://identify.plantnet.org/_ipx/w_500,q_72/https://api.plantnet.org/public/projects/world.jpg',
-                    notes: 'Flore du monde',
-                    especes: '37 023',
-                    images: '9 802 268 ',
-                },
-            ]
+    useEffect(() => {
+        const fetchLeafData = async () => {
+            await axios.get(`${getAPIByType}6447dbeab556ff734098c72f`)
+                .then((res) => {
+                    setLeafData(res.data.agricultures);
+                })
         }
-    ]
+        fetchLeafData();
+
+        const fetchFruitData = async () => {
+            await axios.get(`${getAPIByType}6447dbeab556ff734098c730`)
+                .then((res) => {
+                    setFruitData(res.data.agricultures);
+                })
+        }
+        fetchFruitData();
+    }, [])
 
     const [images, setImages] = useState([]);
     const [classifyImages, setClassifyImages] = useState([]);
@@ -133,6 +56,7 @@ const Identify = () => {
     const [fruitFile, setFruitFile] = useState([])
 
     const api = 'http://localhost:8080/api/v1/agriculture-recognition/agriculture-recognition/multi-recognition'
+    const getAPIByType = 'https://agriculture-identity.vercel.app/api/v1/agriculture/type-id/'
     const reader = new FileReader();
 
     let selectedImage = "";
@@ -498,11 +422,13 @@ const Identify = () => {
                 <h2 className="plant_list_title">Plant list</h2>
                 <div>
                     <ul>
-                        {products.map(p => (
-                            <List title={p.title} items={p.items} />
-                        ))}
+                        {fruitData &&
+                            <List plants={fruitData} />
+                        }
+                        {leafData &&
+                            <List plants={leafData} />
+                        }
                     </ul>
-
                 </div>
             </div>
             <Modal
